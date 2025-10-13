@@ -34,7 +34,7 @@ int main(void)
     double t = 0.0;
     double y[1] = { y0 };
 
-    FILE *fp = fopen("wynik4.txt", "w");
+    FILE *fp = fopen("wynik_test.txt", "w");
     if (!fp) {
         perror("Nie mogę otworzyć pliku wynik5.txt");
         gsl_odeiv2_driver_free(d);
