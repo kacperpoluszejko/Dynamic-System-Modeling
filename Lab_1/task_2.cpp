@@ -8,7 +8,6 @@ func (double, const double y[], double f[],
       void *)
 {
   f[0] = y[0]*y[0];
-  // f[1] = -y[0] - mu*y[1]*(y[0]*y[0] - 1);
   return GSL_SUCCESS;
 }
 
