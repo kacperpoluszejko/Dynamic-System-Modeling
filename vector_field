@@ -1,0 +1,48 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# ===== Definicja układu =====
+def f(x, y):   # dx/dt
+    return x * (1 - y)
+
+def g(x, y):   # dy/dt
+    return y * (x - 1)
+
+# ===== Tworzenie siatki punktów =====
+x = np.linspace(-0.5, 3.0, 25)
+y = np.linspace(-0.5, 3.0, 25)
+X, Y = np.meshgrid(x, y)
+
+# ===== Obliczenie składowych wektorów =====
+U = f(X, Y)
+V = g(X, Y)
+
+# Normalizacja, by strzałki miały podobną długość
+N = np.sqrt(U**2 + V**2)
+U /= N
+V /= N
+
+# ===== Rysowanie pola wektorowego =====
+plt.figure(figsize=(8, 7))
+plt.quiver(X, Y, U, V, angles='xy', color='gray')
+
+# ===== Nulkliny (dx/dt=0, dy/dt=0) =====
+x_line = np.linspace(-0.5, 3.0, 400)
+plt.plot(x_line, np.ones_like(x_line), 'r--', label='y=1 (dx/dt=0)')
+plt.plot(np.ones_like(x_line), x_line, 'b--', label='x=1 (dy/dt=0)')
+plt.axhline(0, color='black', linewidth=0.8)
+plt.axvline(0, color='black', linewidth=0.8)
+
+# ===== Punkty równowagi =====
+eq_points = np.array([[0,0], [1,0], [0,1], [1,1]])
+plt.scatter(eq_points[:,0], eq_points[:,1], color='red', s=60, zorder=5)
+
+# ===== Opis wykresu =====
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title("Pole wektorowe układu:\n dx/dt = x(1 - y),  dy/dt = y(x - 1)")
+plt.legend()
+plt.grid(True)
+plt.xlim(-0.5, 3)
+plt.ylim(-0.5, 3)
+plt.show()
