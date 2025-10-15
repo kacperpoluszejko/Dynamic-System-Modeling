@@ -23,10 +23,6 @@ int func(double t, const double y[], double f[], void *params)
     return GSL_SUCCESS;
 }
 
-/* Zachowana wielkość w ćwiartce dodatniej:
-   H(x,y) = x - ln x + y - ln y  (tylko dla x>0, y>0)
-   Zwraca NAN gdy x<=0 lub y<=0.
-*/
 static double H_invariant(double x, double y)
 {
     if (x > 0.0 && y > 0.0) {
@@ -51,6 +47,7 @@ int main(void)
     gsl_odeiv2_system sys = { func, NULL, 2, NULL };
 
 
+    gsl_odeiv2_driver *d =
         gsl_odeiv2_driver_alloc_y_new(&sys, gsl_odeiv2_step_rk4,
                                       dt, 1e-6, 1e-6);
 
