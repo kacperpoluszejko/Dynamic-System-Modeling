@@ -11,6 +11,7 @@ int func(double t, const double y[], double f[], void *params)
     double k = -1;
     f[0] = k * y[0] * ( 1 - y[0] );
     return GSL_SUCCESS;
+    double b = 0.5;
 }
 
 // double yexact(double x, double y0)
@@ -65,3 +66,4 @@ int main(void)
     gsl_odeiv2_driver_free(d);
     return s;
 }
+ //tt
