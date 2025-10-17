@@ -1,73 +1,52 @@
+#!/usr/bin/env python3
+import re
+from pathlib import Path
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Wczytanie danych
-data1 = np.loadtxt("Lab_2/wynik_1.txt")
-data2 = np.loadtxt("Lab_2/wynik_2.txt")
-data3 = np.loadtxt("Lab_2/wynik_3.txt")
-data4 = np.loadtxt("Lab_2/wynik_4.txt")
-data5 = np.loadtxt("Lab_2/wynik_5.txt")
-data6 = np.loadtxt("Lab_2/wynik_6.txt")
-data7 = np.loadtxt("Lab_2/wynik_7.txt")
-data8 = np.loadtxt("Lab_2/wynik_8.txt")
-data9 = np.loadtxt("Lab_2/wynik_9.txt")
-data10 = np.loadtxt("Lab_2/wynik_10.txt")
-data11= np.loadtxt("Lab_2/wynik_11.txt")
-data12 = np.loadtxt("Lab_2/wynik_12.txt")
-data13 = np.loadtxt("Lab_2/wynik_13.txt")
-data14 = np.loadtxt("Lab_2/wynik_14.txt")
-data15 = np.loadtxt("Lab_2/wynik_15.txt")
-data16 = np.loadtxt("Lab_2/wynik_16.txt")
+def parse_y0_from_header(path: Path):
+    y0 = None
+    with path.open('r', encoding='utf-8') as f:
+        for line in f:
+            if not line.startswith('#'):
+                break
+            m = re.search(r'y0\s*=\s*([+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)', line)
+            if m:
+                try:
+                    y0 = float(m.group(1))
+                except ValueError:
+                    pass
+    return y0
 
+def load_data(path: Path):
+    arr = np.loadtxt(path, comments='#')
+    if arr.ndim == 1:
+        arr = arr[None, :]
+    t, y_num, y_exact = arr[:, 0], arr[:, 1], arr[:, 2]
+    return t, y_num, y_exact
 
+def main():
+    files = sorted(Path('.').glob('Lab_2/wynik_*.txt'))
+    if not files:
+        print("Brak plików wynik_*.txt")
+        return
 
+    for f in files:
+        t, y_num, y_exact = load_data(f)
+        y0 = parse_y0_from_header(f)
 
-# Rozpakowanie kolumn (t, y_num, y_exact, abs_err, rel_err)
-t1, y1_num, y1_exact, abs1, rel1 = data1.T
-t2, y2_num, y2_exact, abs2, rel2 = data2.T
-t3, y3_num, y3_exact, abs3, rel3 = data3.T
-t4, y4_num, y4_exact, abs4, rel4 = data4.T
-t5, y5_num, y5_exact, abs5, rel5 = data5.T
-t6, y6_num, y6_exact, abs6, rel6 = data6.T
-t7, y7_num, y7_exact, abs7, rel7 = data7.T
-t8, y8_num, y8_exact, abs8, rel8 = data8.T
-t9, y9_num, y9_exact, abs9, rel9 = data9.T
-t10, y10_num, y10_exact, abs10, rel10 = data10.T
-t11, y11_num, y11_exact, abs11, rel11 = data11.T
-t12, y12_num, y12_exact, abs12, rel12 = data12.T
-t13, y13_num, y13_exact, abs13, rel13 = data13.T
-t14, y14_num, y14_exact, abs14, rel14 = data14.T
-t15, y15_num, y15_exact, abs15, rel15 = data15.T
-t16, y16_num, y16_exact, abs16, rel16 = data16.T
+        plt.figure()
+        plt.plot(t, y_num, label='y_num')
+        plt.plot(t, y_exact, linestyle='--', label='y_exact')
+        title = f.name if y0 is None else f"{f.name}  (y0={y0})"
+        plt.title(title)
+        plt.xlabel('t')
+        plt.ylabel('y')
+        plt.legend()
+        plt.grid(True)
+        plt.savefig(f"Wykres {f.name}.png")
 
+    plt.show()
 
-# ------------------------------
-# 1️⃣ Wykres y(t) – numeryczne i analityczne
-# ------------------------------
-plt.figure(figsize=(8, 5))
-plt.plot(t1,  y1_num,  label='y0=1 num',  color='blue')
-plt.plot(t2,  y2_num,  label='y0=2 num',  color='orange')
-plt.plot(t3,  y3_num,  label='y0=3 num',  color='green')
-plt.plot(t4,  y4_num,  label='y0=4 num',  color='red')
-plt.plot(t5,  y5_num,  label='y0=5 num',  color='purple')
-plt.plot(t6,  y6_num,  label='y0=6 num',  color='brown')
-plt.plot(t7,  y7_num,  label='y0=7 num',  color='pink')
-plt.plot(t8,  y8_num,  label='y0=8 num',  color='gray')
-plt.plot(t9,  y9_num,  label='y0=9 num',  color='olive')
-plt.plot(t10, y10_num, label='y0=10 num', color='cyan')
-plt.plot(t11, y11_num, label='y0=11 num', color='teal')
-plt.plot(t12, y12_num, label='y0=12 num', color='gold')
-plt.plot(t13, y13_num, label='y0=13 num', color='navy')
-plt.plot(t14, y14_num, label='y0=14 num', color='lime')
-plt.plot(t15, y15_num, label='y0=15 num', color='magenta')
-plt.plot(t16, y16_num, label='y0=16 num', color='black')
-
-plt.xlabel("t")
-plt.ylabel("x(t)")
-plt.ylim(-3, 3)
-plt.grid(True)
-plt.savefig("wykr_2.png")
-plt.show()
-
-
-
+if __name__ == "__main__":
+    main()
