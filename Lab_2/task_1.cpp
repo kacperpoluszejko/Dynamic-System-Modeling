@@ -18,18 +18,15 @@ int func(double t, const double y[], double f[], void *params)
     return GSL_SUCCESS;
 }
 
-// Dokładne rozwiązanie dla równania logistycznego: y' = k y (1-y), K=1
 static inline double y_exact(double t, double y0, double k)
 {
-    // y(t) = 1 / ( 1 + ((1/y0) - 1) * exp(-k t) )
     double C = (1.0 / y0) - 1.0;
     return 1.0 / (1.0 + C * exp(-k * t));
 }
 
 int main(void)
 {
-    // --- Konfiguracja przebiegów ---
-    // Możesz dowolnie zmieniać te listy i/lub dodać kolejne pętle z innymi parametrami.
+
     double y0_list[] = {-0.1, 0.1, 0.9, 1.1};
     const int NRUNS = (int)(sizeof(y0_list)/sizeof(y0_list[0]));
 
@@ -45,7 +42,6 @@ int main(void)
         double t = 0.0;
         double y[1] = { y0_list[run] };
 
-        // Alokacja drivera dla tego przebiegu (najprościej)
         gsl_odeiv2_driver *d =
             gsl_odeiv2_driver_alloc_y_new(&sys, gsl_odeiv2_step_rk4,
                                           dt, 1e-3, 1e-3);
@@ -55,7 +51,6 @@ int main(void)
             return 1;
         }
 
-        // Zbuduj nazwę pliku: wynik_01.txt, wynik_02.txt, ...
         char fname[256];
         snprintf(fname, sizeof(fname), "wynik_%02d.txt", run + 1);
 
@@ -66,7 +61,7 @@ int main(void)
             return 1;
         }
 
-        // Napisz nagłówek + meta-info
+
         fprintf(fp, "# Równanie: y' = k y (1-y), k=%.6g, y0=%.6g, dt=%.3e, nsteps=%d\n", k, y[0], dt, nsteps);
         fprintf(fp, "# t\ty_num\ty_exact\tabs_err\trel_err\n");
 
