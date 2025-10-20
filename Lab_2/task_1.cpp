@@ -30,9 +30,9 @@ int main(void)
     double y0_list[] = {-0.1, 0.1, 0.9, 1.1};
     const int NRUNS = (int)(sizeof(y0_list)/sizeof(y0_list[0]));
 
-    const double dt     = 1e-3;     // krok czasowy
-    const int    nsteps = 3000;     // liczba kroków
-    const double k      = 1.0;     // parametr w równaniu
+    const double dt     = 1e-3;     
+    const int    nsteps = 3000;    
+    const double k      = 1.0;     
     params_t par = {.k = k};
 
     // Układ 1D
