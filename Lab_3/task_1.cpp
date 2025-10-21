@@ -7,14 +7,14 @@ int rhs(double t, const double y[], double f[], void *params)
 {
     (void)t;     
     (void)params; 
-    const double x = y[0];
-    const double z = y[1];   
+    const double x = y[0]; // x = theta
+    const double z = y[1];  // z = omega
 
     // dx/dt = x (y - 1)
-    f[0] = x * (z - 1.0);
+    f[0] = z;
 
     // dy/dt = 3x - 2y + x^2 - 2y^2
-    f[1] = 3.0*x - 2.0*z + x*x - 2.0*z*z;
+    f[1] = -sin(x);
 
     return GSL_SUCCESS;
 }
@@ -22,15 +22,15 @@ int rhs(double t, const double y[], double f[], void *params)
 int main(void)
 {
     const double dt     = 1e-3;     
-    const int    nsteps = 3000;     
+    const int    nsteps = 10000;     
 
     const double ic[][2] = {
-        {  0.10,  0.15 },
-        { -0.10, -0.85 },
-        {  1.10,  0.90 },
-        { -3.80,  1.10 },
-        {  0.40, -0.60 },
-        {  0.80,  0.60 }
+        {  0,  0.5 },
+        {  0,  1.0 },
+        {  0,  1.5 },
+        {  0,  2.0 },
+        {  0,  2.5 },
+        {  0,  3.0 }
     };
     const int NRUNS = (int)(sizeof(ic)/sizeof(ic[0]));
 
@@ -54,7 +54,7 @@ int main(void)
         }
 
         char fname[256];
-        snprintf(fname, sizeof(fname), "traj_%02d.txt", run + 1);
+        snprintf(fname, sizeof(fname), "traj3_%02d.txt", run + 1);
 
         FILE *fp = fopen(fname, "w");
         if (!fp) {
