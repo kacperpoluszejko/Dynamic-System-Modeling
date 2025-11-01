@@ -45,8 +45,8 @@ def main():
         all_y.append(y)
         all_x0y0.append((x0, y0))
 
-    xmin, xmax = -3, 3
-    ymin, ymax = -3, 3
+    xmin, xmax = -5, 5
+    ymin, ymax = -5, 5
 
     fig, ax = plt.subplots(figsize=(8, 7))
 
@@ -54,7 +54,7 @@ def main():
     # Trajektorie z podpisem punktu początkowego
     for fname, x, y, (x0, y0) in zip(files, all_x, all_y, all_x0y0):
         if x0 is not None and y0 is not None:
-            label = f"(x₀={x0:.4f}, y₀={y0:.2f})"
+            label = f"(x₀={x0:.4f}, v₀={y0:.2f})"
         else:
             label = f"{Path(fname).name}"
         ax.plot(x, y, lw=1.8, label=label)
@@ -76,7 +76,7 @@ def main():
         t, x, y, x0, y0 = load_traj(Path(fname))
         fig2, (ax1, ax2) = plt.subplots(2, 1, figsize=(7.5, 6), sharex=True)
         if x0 is not None and y0 is not None:
-            fig2.suptitle(f"(x₀={x0:.4f}, y₀={y0:.2f})")
+            fig2.suptitle(f"(x₀={x0:.4f}, v₀={y0:.2f})")
         else:
             fig2.suptitle(Path(fname).name)
 
@@ -86,7 +86,7 @@ def main():
 
         ax2.plot(t, y, lw=1.8, color='tab:orange')
         ax2.set_xlabel('t')
-        ax2.set_ylabel('y(t)')
+        ax2.set_ylabel('v(t)')
         ax2.grid(True, alpha=0.3)
 
         plt.tight_layout(rect=[0, 0, 1, 0.96])
