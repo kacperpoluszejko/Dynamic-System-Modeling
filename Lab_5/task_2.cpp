@@ -25,7 +25,7 @@ int main(void)
     const int    nsteps = 2000;   
 
 
-    double m_list[] = { -3};
+    double m_list[] = {-1, 1, 3, 5};
     const int NM = (int)(sizeof(m_list)/sizeof(m_list[0]));
 
 

@@ -55,7 +55,7 @@ for m in sorted(by_m.keys()):
     plt.xlabel("t")
     plt.ylabel("x(t)")
     plt.ylim(-5, 5)
-    plt.title(f"Rozwiązania dla m = {m:+.3f}")
+    plt.title(f"Rozwiązania dla p = {m:+.3f}")
     plt.grid(True, alpha=0.4)
     # plt.legend(ncol=3, fontsize=7)
     plt.tight_layout()
