@@ -52,7 +52,7 @@ int main(void)
         }
 
         char fname[256];
-        snprintf(fname, sizeof(fname), "traj3_%02d.txt", run + 1);
+        snprintf(fname, sizeof(fname), "traj_%02d.txt", run + 1);
 
         FILE *fp = fopen(fname, "w");
         if (!fp) {
@@ -83,4 +83,5 @@ int main(void)
     }
 
     return 0;
+    // tt
 }
