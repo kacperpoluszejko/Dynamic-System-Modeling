@@ -1,41 +1,3 @@
-# import numpy as np
-# import matplotlib.pyplot as plt
-
-# # zakres parametru m
-# m = np.linspace(0, 3, 200)
-
-
-# Re_lambda1 = np.zeros_like(m)
-# Re_lambda2 = np.zeros_like(m)
-# Im_lambda1 = np.ones_like(m)
-# Im_lambda2 = -np.ones_like(m)
-
-# plt.figure(figsize=(8, 6))
-
-# # --- wykres części rzeczywistej ---
-# plt.subplot(2, 1, 1)
-# plt.plot(m, Re_lambda1, label=r'$\Re \lambda_1$')
-# plt.plot(m, Re_lambda2, '--', label=r'$\Re \lambda_2$')
-# plt.xlabel(r'$m$')
-# plt.ylabel(r'$\Re \lambda$')
-# plt.title(r'$\varepsilon = 0$')
-# plt.grid(True)
-# plt.legend()
-
-# # --- wykres części urojonej ---
-# plt.subplot(2, 1, 2)
-# plt.plot(m, Im_lambda1, label=r'$\Im \lambda_1$')
-# plt.plot(m, Im_lambda2, '--', label=r'$\Im \lambda_2$')
-# plt.xlabel(r'$m$')
-# plt.ylabel(r'$\Im \lambda$')
-# plt.grid(True)
-# plt.legend()
-
-# plt.tight_layout()
-# plt.savefig("Rys_1.png")
-# plt.show()
-
-
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -43,18 +5,19 @@ import matplotlib.pyplot as plt
 m = np.linspace(0.0, 3.0, 500)
 
 # Parametr eps
-eps = 0.5
+eps = 3.0  # <-- TU zmieniamy epsilon
 
-# Element (2,2) Jacobiego: a = eps * (m^2 - 1)
-a = eps * (m**2 - 1.0)
+# Element (2,2) Jacobiego: a = -eps * (m^2 - 1)
+# Uwaga: w układzie \dot{x2} = m - x1 - eps (x1^2 - 1) x2
+#       więc w Jacobianie na pozycji (2,2) mamy: -eps (m^2 - 1)
+a = -eps * (m**2 - 1.0)
 
 # Równanie charakterystyczne: λ^2 - a λ + 1 = 0
 # Dyskryminant: Δ = a^2 - 4
 disc = a**2 - 4.0
 
 # Wartości własne:
-# λ_{1,2} = (a ± sqrt(a^2 - 4)) / 2
-lambda1 = (a + np.sqrt(disc + 0j)) / 2.0   # +0j: pierwiastek zespolony
+lambda1 = (a + np.sqrt(disc + 0j)) / 2.0
 lambda2 = (a - np.sqrt(disc + 0j)) / 2.0
 
 # Części rzeczywiste i urojone
@@ -72,9 +35,7 @@ ax1.plot(m, Re2, label=r'$\Re \lambda_2$')
 ax1.axhline(0.0, linewidth=0.8)
 
 ax1.set_ylabel(r'$\Re \lambda$')
-ax1.set_title(
-    r'$\varepsilon = \frac{1}{2}$'
-)
+ax1.set_title(r'$\varepsilon = 3$')
 ax1.grid(True)
 ax1.legend(loc='best')
 
@@ -89,5 +50,6 @@ ax2.grid(True)
 ax2.legend(loc='best')
 
 plt.tight_layout()
-plt.savefig("Rys_2.png")
+plt.savefig("Rys_eps3.png")
 plt.show()
+

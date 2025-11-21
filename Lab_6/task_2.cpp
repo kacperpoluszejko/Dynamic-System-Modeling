@@ -13,7 +13,7 @@ int rhs(double t, const double y[], double f[], void *params)
   
     f[0] = z;
    
-    f[1] = 0.5*(x*x - 1)*z - x + 3;
+    f[1] = -3*(x*x - 1)*z - x + 0;
 
     return GSL_SUCCESS;
 }
@@ -24,11 +24,11 @@ int main(void)
     const int    nsteps = 10000;     
 
     const double ic[][2] = {
-        {  0.1,  0 },
-        {  1,  1 },
-        {  3,  2.5 },
-        {  -3,  -3 },
-        {  2,  0 },
+        {  0.1 + 0,  0 },
+        {  1 + 0,  1 },
+        {  3 + 0,  2.5 },
+        {  -3 + 0,  -3 },
+        {  2 + 0,  0 },
     };
     const int NRUNS = (int)(sizeof(ic)/sizeof(ic[0]));
 
