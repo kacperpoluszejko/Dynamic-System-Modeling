@@ -32,7 +32,7 @@ def load_traj(path: Path):
 
 
 def main():
-    files = sorted(glob.glob("Lab_6/traj2_*.txt"))
+    files = sorted(glob.glob("Lab_6/trajm3_*.txt"))
     if not files:
         print("Brak plików traj_*.txt")
         return
@@ -45,8 +45,8 @@ def main():
         all_y.append(y)
         all_x0y0.append((x0, y0))
 
-    xmin, xmax = -5, 5
-    ymin, ymax = -5, 5
+    xmin, xmax = -10, 10
+    ymin, ymax = -10, 10
 
     fig, ax = plt.subplots(figsize=(8, 7))
 
@@ -66,9 +66,9 @@ def main():
     ax.set_aspect('equal', adjustable='box')
     ax.grid(True, alpha=0.3)
     ax.legend(loc='best', fontsize=8)
-    ax.set_title('Trajektorie w przestrzeni fazowej (m = 2)')
+    ax.set_title('Trajektorie w przestrzeni fazowej (m = 3)')
     plt.tight_layout()
-    plt.savefig("portret_fazowy_z_trajektoriami_m_2.png")
+    plt.savefig("portret_fazowy_z_trajektoriami22_m_3.png")
     plt.show()
 
     # ===== Wykresy x(t), y(t) =====
@@ -90,7 +90,7 @@ def main():
         ax2.grid(True, alpha=0.3)
 
         plt.tight_layout(rect=[0, 0, 1, 0.96])
-        plt.savefig(f"traj3_{i:02d}_xt_yt_m_2.png")
+        plt.savefig(f"traj22_{i:02d}_xt_yt_m_3.png")
     plt.show()
 
 
