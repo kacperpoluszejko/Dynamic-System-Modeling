@@ -13,7 +13,7 @@ int rhs(double t, const double y[], double f[], void *params)
   
     f[0] = z;
    
-    f[1] = -3*(x*x - 1)*z - x + 0;
+    f[1] = 1/2*(x*x - 1)*z - x + 0;
 
     return GSL_SUCCESS;
 }

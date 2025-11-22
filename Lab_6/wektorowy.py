@@ -7,7 +7,7 @@ def f(x, y):   # dx/dt
     return y
 
 def g(x, y):   # dy/dt
-    return  0.5*(x*x - 1)*y - x + 3
+    return  -3*(x*x - 1)*y - x + 2.5
 # ===== Siatka =====
 x = np.linspace(-1, 5, 70)
 y = np.linspace(-3, 3, 70)
@@ -49,7 +49,7 @@ ax.set_ylim(y.min(), y.max())
 ax.set_aspect('equal', adjustable='box')
 ax.grid(True, alpha=0.3)
 ax.legend(loc='upper left', framealpha=0.9)
-ax.set_title('Portret fazowy (m = 3)')
+ax.set_title(r'Portret fazowy ($m = 2.5$)')
 plt.tight_layout()
-plt.savefig("Wektorowy2_m_3.png")
+plt.savefig("Wektorowy2_m_2_5.png")
 plt.show()
