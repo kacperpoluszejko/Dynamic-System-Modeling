@@ -1,5 +1,4 @@
 # Dynamic system modeling
-This rerpository...
 
 
 
