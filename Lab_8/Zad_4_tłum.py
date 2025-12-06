@@ -4,9 +4,7 @@ import imageio
 import io
 from numba import njit
 
-# ============================
-#      NUMBA MAP (DAMPED)
-# ============================
+
 
 @njit
 def poincare_map_damped(K, b, theta0, L0_list, N):

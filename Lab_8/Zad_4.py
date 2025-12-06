@@ -39,7 +39,7 @@ L0_list = alpha * 2 * np.pi
 N = 2000
 
 K_min = 0.0
-K_max = 4.0
+K_max = 2.0
 K_step = 0.01
 
 K_anim = np.arange(K_min, K_max + K_step, K_step)
@@ -66,5 +66,6 @@ for K in K_anim:
     plt.close(fig)
 
 
-imageio.mimsave("poincare_git.gif", frames, duration=0.05)
+imageio.mimsave("poincare_damped.gif", frames, duration=0.05, loop=0)
+
 
