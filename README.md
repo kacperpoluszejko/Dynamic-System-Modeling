@@ -14,7 +14,7 @@ List of projects:
 
 
 
-### 🌀 Standard Map – Poincaré Section Animation
+### 🌀 EXAMPLE - Poincaré Section Animation
 
 The GIF below shows the evolution of the Poincaré section of the **standard (Chirikov–Taylor) map** as the parameter \(K\) increases.  
 Multiple trajectories with different initial momentum values are iterated to visualize how the phase–space structure transitions from regular motion to widespread chaos.
