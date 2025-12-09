@@ -66,6 +66,6 @@ for K in K_anim:
     plt.close(fig)
 
 
-imageio.mimsave("poincare_damped.gif", frames, duration=0.05, loop=0)
+imageio.mimsave("poincare.gif", frames, duration=0.05, loop=0)
 
 
