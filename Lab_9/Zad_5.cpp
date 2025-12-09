@@ -20,8 +20,8 @@ void poincare(const string& filename, T a, T b)
 {
     ofstream file(filename);
 
-    int N = 20000;      
-    int N_skip = 200;  
+    int N = 200000;      
+    int N_skip = 5000;  
 
     T x = 0.1;
     T y = 0.1;
@@ -49,9 +49,10 @@ int main()
     for (int i = 0; i < 4; i++)
     {
         double a = a_vals[i];
-        
-        poincare<double>("poincare_double_a_" + to_string(a) + ".txt", a, b);
-        poincare<float>("poincare_float_a_" + to_string(a) + ".txt", (float)a, (float)b);
+        string a_str = clean_number(a);
+
+        poincare<double>("poincare_double_a_" + a_str + ".txt", a, b);
+        poincare<float>("poincare_float_a_" + a_str + ".txt", (float)a, (float)b);
     }
 
     return 0;

@@ -19,9 +19,9 @@ void poincare_multi(const string& filename, T a, T b)
 {
     ofstream file(filename);
 
-    const int N = 2000;        
-    const int N_skip = 400;    
-    const int S = 80;          
+    const int N = 5000;        
+    const int N_skip = 100;    
+    const int S = 300;          
 
     for (int s = 0; s < S; s++)
     {

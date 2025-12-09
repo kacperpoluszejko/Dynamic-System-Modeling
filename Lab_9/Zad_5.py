@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-a_vals = [0.50, 1.10, 1.25, 1.40]
+a_vals = [1.40]
 
 for a in a_vals:
     data_d = np.loadtxt(f"Lab_9/poincare_double_a_{a}.txt")
@@ -13,10 +13,17 @@ for a in a_vals:
     plt.figure(figsize=(6,5))
     plt.scatter(x_d, y_d, s=1, label="double", alpha=0.7)
     plt.scatter(x_f, y_f, s=1, label="float", alpha=0.7)
-    plt.title(f"Poincaré: a = {a}")
+    plt.xlim(0.2, 0.7)   
+    plt.ylim(0.0, 0.4)
+    plt.title(f"Poincaré2: a = {a}")
     plt.xlabel("x")
     plt.ylabel("y")
     plt.legend()
     plt.tight_layout()
+    plt.gca().set_aspect('equal', 'box')
     plt.savefig(f"poincare_{a}.png")
     plt.show()
+
+
+
+
