@@ -52,7 +52,6 @@ int main()
         string a_str = clean_number(a);
 
         poincare<double>("poincare_double_a_" + a_str + ".txt", a, b);
-        poincare<float>("poincare_float_a_" + a_str + ".txt", (float)a, (float)b);
     }
 
     return 0;
