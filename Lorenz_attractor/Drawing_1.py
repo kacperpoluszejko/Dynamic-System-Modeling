@@ -43,3 +43,7 @@ plt.ylabel("x(t)")
 plt.legend()
 plt.savefig("plot_3_2.png")
 plt.show()
+#rrrrr
+plt.show()
+
+
