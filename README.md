@@ -23,4 +23,4 @@ Multiple trajectories with different initial momentum values are iterated to vis
 
 All mathematical details and derivations are included in the report located in the **lab_8** folder.
 
-![Animacja działania](poincare_git.gif)
+![Animacja działania](lab_8/poincare_git.gif)
