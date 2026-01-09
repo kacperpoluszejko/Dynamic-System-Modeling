@@ -11,6 +11,8 @@ List of projects:
 6. The van der Pol oscillator  
 7. Bifurcation diagrams and the Lyapunov exponent  
 8. The atomic kicked rotator and Poincaré sections
+9. Hénon map, fractal dimensions
+10. Logistic map, multifractal dimensions
 
 
 
