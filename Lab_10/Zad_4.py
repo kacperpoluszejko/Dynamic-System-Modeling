@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 r = 3.569945672
-N = 100000
+N = 1000000
 x_old = 0.5
 x_table = []
 
@@ -21,11 +21,8 @@ def Z_q_eps_1d(x, eps, q):
     ix = np.floor(x * n).astype(int)
     _, counts = np.unique(ix, return_counts=True)
     mu = counts / np.sum(counts)
-    if q == 1:
-        return np.sum(mu * np.log(mu))
-    else:
-        return np.sum(mu**q)
-    
+    return np.sum(mu**q)
+
 
 def tau_q_1d_with_error(x, q, k_vals):
     ln_eps = []
@@ -41,11 +38,11 @@ def tau_q_1d_with_error(x, q, k_vals):
     ln_eps = np.array(ln_eps)
     ln_Z = np.array(ln_Z)
 
-    coeffs, cov = np.polyfit(ln_eps, ln_Z, 1, cov=True)
-    tau = coeffs[0]
-    tau_err = np.sqrt(cov[0, 0])
+    if ln_eps.size < 2:
+        return np.nan, np.nan
 
-    return tau, tau_err
+    coeffs, cov = np.polyfit(ln_eps, ln_Z, 1, cov=True)
+    return coeffs[0], np.sqrt(cov[0, 0])
 
 
 q_vals = np.concatenate((
@@ -53,8 +50,7 @@ q_vals = np.concatenate((
     np.arange(0.5, 10.1, 0.5)
 ))
 
-k_vals = np.arange(4, 12)
-
+k_vals = np.arange(10, 25)
 
 tau_vals = []
 tau_errs = []
@@ -64,10 +60,59 @@ for q in q_vals:
     tau_vals.append(t)
     tau_errs.append(dt)
 
+tau_vals = np.array(tau_vals)
+tau_errs = np.array(tau_errs)
 
-import matplotlib.pyplot as plt
+D_vals = np.full_like(q_vals, np.nan, dtype=float)
+D_errs = np.full_like(q_vals, np.nan, dtype=float)
 
+mask = q_vals != 1
+D_vals[mask] = tau_vals[mask] / (q_vals[mask] - 1)
+D_errs[mask] = tau_errs[mask] / np.abs(q_vals[mask] - 1)
+
+dq = 1e-3
+
+tau_m, dtau_m = tau_q_1d_with_error(x, 1 - dq, k_vals)
+tau_p, dtau_p = tau_q_1d_with_error(x, 1 + dq, k_vals)
+
+D1 = 0.5 * (tau_m / (-dq) + tau_p / dq)
+
+D1_err = 0.5 * np.sqrt(
+    (dtau_m / dq)**2 +
+    (dtau_p / dq)**2
+)
+
+i1 = np.argmin(np.abs(q_vals - 1))
+D_vals[i1] = D1
+D_errs[i1] = D1_err
+
+
+i1 = np.argmin(np.abs(q_vals - 1))
+D_vals[i1] = D1
+
+i0 = np.argmin(np.abs(q_vals - 0))
+i1 = np.argmin(np.abs(q_vals - 1))
+i2 = np.argmin(np.abs(q_vals - 2))
+
+print(D_vals[i0])
+print(D_vals[i1])
+print(D_vals[i2])
+
+print(D_errs[i0])
+print(D_errs[i1])
+print(D_errs[i2])
+
+
+plt.figure()
 plt.errorbar(q_vals, tau_vals, yerr=tau_errs, fmt='o')
 plt.xlabel("q")
 plt.ylabel("tau(q)")
+plt.savefig("Lab_10/tau.png")
+plt.show()
+
+plt.figure()
+plt.errorbar(q_vals, D_vals, yerr=D_errs, fmt='o')
+plt.xlabel("q")
+plt.ylabel("D(q)")
+plt.savefig("Lab_10/D_q.png")
 plt.show()
