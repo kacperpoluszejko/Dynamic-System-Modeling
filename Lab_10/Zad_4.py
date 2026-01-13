@@ -50,7 +50,7 @@ q_vals = np.concatenate((
     np.arange(0.5, 10.1, 0.5)
 ))
 
-k_vals = np.arange(10, 25)
+k_vals = np.arange(4, 12)
 
 tau_vals = []
 tau_errs = []
