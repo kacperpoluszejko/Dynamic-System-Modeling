@@ -1,6 +1,6 @@
 # Dynamic system modeling
 
-This repository contains a collection of programs and analyses related to the study of (non)linear dynamical systems, developed as part of the coursework in the Master's programme in Applied Physics (specialization: Computational Physics). The projects cover fundamental topics in dynamical systems theory, including ordinary differential equations, phase–space analysis, bifurcations, and chaotic behavior. 
+This repository contains a collection of programs and analyses related to the study of (non)linear dynamical systems, developed as part of the coursework in the Master's programme in Applied Physics (specialization: Computational Physics). The projects cover fundamental topics in dynamical systems theory, including ODE/PDE, phase–space analysis, bifurcations, and chaotic behavior. 
 List of projects:
 
 1. Introduction to the GSL library  
